@@ -60,5 +60,12 @@ class MainSpec extends WordSpec with Matchers {
     }
   }
 
+  "WordChain.filterDictionary" should {
+
+    "filter the dictionary to only include strings of the specified length" in {
+      WordChain.filterDictionary(3, List("cat", "badger", "ferret", "lizard")) shouldBe List("cat")
+    }
+  }
+
 
 }
