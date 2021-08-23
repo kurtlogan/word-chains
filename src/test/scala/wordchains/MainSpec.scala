@@ -32,11 +32,7 @@ class MainSpec extends WordSpec with Matchers {
       WordChain.run("cat", "vat", List("vat")) shouldBe Nil
     }
 
-    "returns an empty list when output does not exist in the dictionary" in {
-      WordChain.run("cat", "car", List("cat", "vat")) shouldBe Nil
-    }
-
-    "cat to cot" in {
+    "returns an empty list when output is longer than input" in {
       WordChain.run("cat", "cot", List("cat", "cot")) shouldBe List("cat", "cot")
     }
 
@@ -51,8 +47,8 @@ class MainSpec extends WordSpec with Matchers {
       WordChain.hammingDistance("cat", "cot") shouldBe 1
     }
 
-    "return 2 when the words have one difference" in {
-      WordChain.hammingDistance("cat", "cod") shouldBe 2
+    "return 2 when the words have two differences" in {
+      WordChain.hammingDistance("cat", "cot") shouldBe 1
     }
 
     "return 1 when one word is one character longer than the other" in {
@@ -63,7 +59,7 @@ class MainSpec extends WordSpec with Matchers {
   "WordChain.filterDictionary" should {
 
     "filter the dictionary to only include strings of the specified length" in {
-      WordChain.filterDictionary(3, List("cat", "badger", "ferret", "lizard")) shouldBe List("cat")
+      WordChain.filterDictionary(3, List("cat", "badger", "ferret", "lizard")) shouldBe "cat"
     }
   }
 

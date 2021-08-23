@@ -1,12 +1,4 @@
 package wordchains
-import scala.io.Source
-
-object Main extends App {
-
-  val lines = Source.fromResource("popular.txt").getLines().toList
-
-  WordChain.run("cat", "dog", lines).foreach(println(_))
-}
 
 object WordChain {
 
@@ -20,11 +12,11 @@ object WordChain {
 
   }
 
-  def buildChain(word1: String, word2: String, dictionary: List[String]): List[String] =
+  def buildChain(word1: String, word2: String, dictionary: List[String]): String =
     if (word1 == word2) {
       List(word1)
     } else {
-      val newWord = dictionary.filter { w =>
+      val newWord = dictionary.map { w =>
         hammingDistance(word1, w) == 1 &&
           hammingDistance(word1, word2) > hammingDistance(word2, w)
       }.head
@@ -33,12 +25,10 @@ object WordChain {
     }
 
   def run(word1: String, word2: String, dictionary: List[String]): List[String] = {
-    if(!dictionary.contains(word1) || !dictionary.contains(word2)) {
+    if(!dictionary.contains(word1)) {
       Nil
     }
-    else if(word1.length != word2.length) {
-      Nil
-    } else {
+    else {
       buildChain(word1, word2, filterDictionary(word1.length, dictionary))
     }
   }
